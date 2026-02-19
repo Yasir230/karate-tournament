@@ -6,8 +6,8 @@
     "scripts": {
         "dev": "tsx watch src/index.ts",
         "build": "tsc",
-        "start": "node dist/index.js",
-        "migrate": "node dist/db/migrate.js",
+        "start": "node dist/backend/src/index.js",
+        "migrate": "node dist/backend/src/db/migrate.js",
         "seed": "tsx src/db/seed.ts"
     },
     "dependencies": {
