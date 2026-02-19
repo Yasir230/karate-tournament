@@ -50,7 +50,9 @@ app.use('/api/certificates', certificateRoutes);
 
 // Serve Frontend Static Files
 import path from 'path';
-app.use(express.static(path.join(__dirname, '../../frontend/dist')));
+// Resolved path: backend/dist/backend/src/index.js -> ../../../../frontend/dist
+const frontendPath = path.join(__dirname, '../../../../frontend/dist');
+app.use(express.static(frontendPath));
 
 // Global error handler — catches errors forwarded by asyncHandler
 app.use((err: any, _req: any, res: any, _next: any) => {
@@ -62,25 +64,30 @@ app.use((err: any, _req: any, res: any, _next: any) => {
     });
 });
 
-// Catch-all route for SPA - AFTER API routes and error handler (wait, no error handler should be last middleware, but SPA route is a normal route handler)
-// We need to place this BEFORE error handler if we want to handle 404s as index.html, OR simply as a route.
-// Express executes in order.
+// Catch-all route for SPA - AFTER API routes and error handler
 app.get('*', (_req, res) => {
-    res.sendFile(path.join(__dirname, '../../frontend/dist/index.html'));
+    res.sendFile(path.join(frontendPath, 'index.html'));
 });
 
 // Dashboard stats
-app.get('/api/stats', (_req, res) => {
+app.get('/api/stats', async (_req, res) => {
     try {
-        const { default: db } = require('./db/database');
-        const totalAthletes = (db.prepare('SELECT COUNT(*) as count FROM athletes').get() as any).count;
-        const validAthletes = (db.prepare("SELECT COUNT(*) as count FROM athletes WHERE status = 'VALID'").get() as any).count;
-        const pendingAthletes = (db.prepare("SELECT COUNT(*) as count FROM athletes WHERE status = 'PENDING'").get() as any).count;
-        const totalEvents = (db.prepare('SELECT COUNT(*) as count FROM events').get() as any).count;
-        const ongoingEvents = (db.prepare("SELECT COUNT(*) as count FROM events WHERE status = 'ONGOING'").get() as any).count;
-        const totalMatches = (db.prepare('SELECT COUNT(*) as count FROM matches').get() as any).count;
-        const completedMatches = (db.prepare("SELECT COUNT(*) as count FROM matches WHERE status = 'COMPLETED'").get() as any).count;
-        const totalCertificates = (db.prepare('SELECT COUNT(*) as count FROM certificates').get() as any).count;
+        const { pool } = require('./db/database');
+
+        // Helper function for count queries
+        const getCount = async (table: string, condition = '') => {
+            const result = await pool.query(`SELECT COUNT(*) as count FROM ${table} ${condition}`);
+            return parseInt(result.rows[0].count);
+        };
+
+        const totalAthletes = await getCount('athletes');
+        const validAthletes = await getCount('athletes', "WHERE status = 'VALID'");
+        const pendingAthletes = await getCount('athletes', "WHERE status = 'PENDING'");
+        const totalEvents = await getCount('events');
+        const ongoingEvents = await getCount('events', "WHERE status = 'ONGOING'");
+        const totalMatches = await getCount('matches');
+        const completedMatches = await getCount('matches', "WHERE status = 'COMPLETED'");
+        const totalCertificates = await getCount('certificates');
 
         res.json({
             athletes: { total: totalAthletes, valid: validAthletes, pending: pendingAthletes },
@@ -89,6 +96,7 @@ app.get('/api/stats', (_req, res) => {
             certificates: totalCertificates,
         });
     } catch (err) {
+        console.error('Stats error:', err);
         res.status(500).json({ error: 'Internal server error' });
     }
 });
@@ -107,7 +115,7 @@ httpServer.listen(PORT, () => {
   ║                                               ║
   ║  Server running on http://localhost:${PORT}      ║
   ║  WebSocket enabled                            ║
-  ║  Database: SQLite (WAL mode)                  ║
+  ║  Database: PostgreSQL                         ║
   ╚═══════════════════════════════════════════════╝
   `);
 });
