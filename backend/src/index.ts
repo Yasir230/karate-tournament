@@ -89,7 +89,7 @@ app.get('/api/stats', async (_req, res) => {
 // Serve Frontend Static Files
 import path from 'path';
 // Resolved path: backend/dist/backend/src/index.js -> ../../../../../frontend/dist
-const frontendPath = path.join(__dirname, '../../../../../frontend/dist');
+const frontendPath = path.join(__dirname, '../../../../frontend/dist');
 app.use(express.static(frontendPath));
 
 // Global error handler — catches errors forwarded by asyncHandler
