@@ -1,0 +1,78 @@
+
+> karate-tournament@1.0.0 build
+> npm run build:frontend && npm run build:backend
+
+
+> karate-tournament@1.0.0 build:frontend
+> cd frontend && npm install && npm run build
+
+
+up to date, audited 257 packages in 4s
+
+60 packages are looking for funding
+  run `npm fund` for details
+
+11 vulnerabilities (1 moderate, 10 high)
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+
+> frontend@0.0.0 build
+> tsc -b && vite build
+
+[36mvite v7.3.1 [32mbuilding client environment for production...[36m[39m
+transforming...
+[32mΓ£ô[39m 1946 modules transformed.
+rendering chunks...
+computing gzip size...
+[2mdist/[22m[32mindex.html                 [39m[1m[2m  0.46 kB[22m[1m[22m[2m Γöé gzip:   0.29 kB[22m
+[2mdist/[22m[35massets/index-BV7hgnL3.css  [39m[1m[2m 46.37 kB[22m[1m[22m[2m Γöé gzip:   8.26 kB[22m
+[2mdist/[22m[36massets/index-cyQVfIuZ.js   [39m[1m[33m796.65 kB[39m[22m[2m Γöé gzip: 245.86 kB[22m
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+[32mΓ£ô built in 14.44s[39m
+
+> karate-tournament@1.0.0 build:backend
+> cd backend && npm install && npm run build
+
+
+up to date, audited 292 packages in 1s
+
+65 packages are looking for funding
+  run `npm fund` for details
+
+1 high severity vulnerability
+
+Some issues need review, and may require choosing
+a different dependency.
+
+Run `npm audit` for details.
+
+> karate-tournament-backend@1.0.0 build
+> tsc
+
+src/db/migrate.ts(1,17): error TS2614: Module '"./database"' has no exported member 'pool'. Did you mean to use 'import pool from "./database"' instead?
+src/db/run_migration.ts(9,8): error TS2339: Property 'exec' does not exist on type '{ query: <T extends QueryResultRow = any>(text: string, params?: any[] | undefined) => Promise<QueryResult<T>>; withTransaction: <T>(fn: (client: PoolClient) => Promise<...>) => Promise<...>; pool: Pool; initializeDatabase: () => void; }'.
+src/db/seed.ts(81,8): error TS2339: Property 'exec' does not exist on type '{ query: <T extends QueryResultRow = any>(text: string, params?: any[] | undefined) => Promise<QueryResult<T>>; withTransaction: <T>(fn: (client: PoolClient) => Promise<...>) => Promise<...>; pool: Pool; initializeDatabase: () => void; }'.
+src/db/seed.ts(82,8): error TS2339: Property 'exec' does not exist on type '{ query: <T extends QueryResultRow = any>(text: string, params?: any[] | undefined) => Promise<QueryResult<T>>; withTransaction: <T>(fn: (client: PoolClient) => Promise<...>) => Promise<...>; pool: Pool; initializeDatabase: () => void; }'.
+src/db/seed.ts(83,8): error TS2339: Property 'exec' does not exist on type '{ query: <T extends QueryResultRow = any>(text: string, params?: any[] | undefined) => Promise<QueryResult<T>>; withTransaction: <T>(fn: (client: PoolClient) => Promise<...>) => Promise<...>; pool: Pool; initializeDatabase: () => void; }'.
+src/db/seed.ts(84,8): error TS2339: Property 'exec' does not exist on type '{ query: <T extends QueryResultRow = any>(text: string, params?: any[] | undefined) => Promise<QueryResult<T>>; withTransaction: <T>(fn: (client: PoolClient) => Promise<...>) => Promise<...>; pool: Pool; initializeDatabase: () => void; }'.
+src/db/seed.ts(85,8): error TS2339: Property 'exec' does not exist on type '{ query: <T extends QueryResultRow = any>(text: string, params?: any[] | undefined) => Promise<QueryResult<T>>; withTransaction: <T>(fn: (client: PoolClient) => Promise<...>) => Promise<...>; pool: Pool; initializeDatabase: () => void; }'.
+src/db/seed.ts(86,8): error TS2339: Property 'exec' does not exist on type '{ query: <T extends QueryResultRow = any>(text: string, params?: any[] | undefined) => Promise<QueryResult<T>>; withTransaction: <T>(fn: (client: PoolClient) => Promise<...>) => Promise<...>; pool: Pool; initializeDatabase: () => void; }'.
+src/db/seed.ts(87,8): error TS2339: Property 'exec' does not exist on type '{ query: <T extends QueryResultRow = any>(text: string, params?: any[] | undefined) => Promise<QueryResult<T>>; withTransaction: <T>(fn: (client: PoolClient) => Promise<...>) => Promise<...>; pool: Pool; initializeDatabase: () => void; }'.
+src/db/seed.ts(91,12): error TS2339: Property 'exec' does not exist on type '{ query: <T extends QueryResultRow = any>(text: string, params?: any[] | undefined) => Promise<QueryResult<T>>; withTransaction: <T>(fn: (client: PoolClient) => Promise<...>) => Promise<...>; pool: Pool; initializeDatabase: () => void; }'.
+src/db/seed.ts(97,8): error TS2339: Property 'prepare' does not exist on type '{ query: <T extends QueryResultRow = any>(text: string, params?: any[] | undefined) => Promise<QueryResult<T>>; withTransaction: <T>(fn: (client: PoolClient) => Promise<...>) => Promise<...>; pool: Pool; initializeDatabase: () => void; }'.
+src/db/seed.ts(105,8): error TS2339: Property 'prepare' does not exist on type '{ query: <T extends QueryResultRow = any>(text: string, params?: any[] | undefined) => Promise<QueryResult<T>>; withTransaction: <T>(fn: (client: PoolClient) => Promise<...>) => Promise<...>; pool: Pool; initializeDatabase: () => void; }'.
+src/db/seed.ts(112,30): error TS2339: Property 'prepare' does not exist on type '{ query: <T extends QueryResultRow = any>(text: string, params?: any[] | undefined) => Promise<QueryResult<T>>; withTransaction: <T>(fn: (client: PoolClient) => Promise<...>) => Promise<...>; pool: Pool; initializeDatabase: () => void; }'.
+src/db/seed.ts(158,8): error TS2339: Property 'prepare' does not exist on type '{ query: <T extends QueryResultRow = any>(text: string, params?: any[] | undefined) => Promise<QueryResult<T>>; withTransaction: <T>(fn: (client: PoolClient) => Promise<...>) => Promise<...>; pool: Pool; initializeDatabase: () => void; }'.
+src/db/seed.ts(164,35): error TS2339: Property 'prepare' does not exist on type '{ query: <T extends QueryResultRow = any>(text: string, params?: any[] | undefined) => Promise<QueryResult<T>>; withTransaction: <T>(fn: (client: PoolClient) => Promise<...>) => Promise<...>; pool: Pool; initializeDatabase: () => void; }'.
+src/routes/events.ts(182,51): error TS2345: Argument of type 'string | string[]' is not assignable to parameter of type 'string'.
+  Type 'string[]' is not assignable to type 'string'.
